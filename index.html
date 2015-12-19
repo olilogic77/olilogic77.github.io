@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="First GitHub Page : GitHub Pages site">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>First GitHub Page</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/olilogic77">View on GitHub</a>
+
+          <h1 id="project_title">First GitHub Page</h1>
+          <h2 id="project_tagline">GitHub Pages site</h2>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <hr>
+
+<p>layout: default
+title: Ruby Girls Cloud9 Sinatra App - The Why?</p>
+
+<h2>
+<a id="permalink-sinatra-app-guide-why" class="anchor" href="#permalink-sinatra-app-guide-why" aria-hidden="true"><span class="octicon octicon-link"></span></a>permalink: sinatra-app-guide-why</h2>
+
+<h1>
+<a id="ruby-girls-sinatra-app-guide" class="anchor" href="#ruby-girls-sinatra-app-guide" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ruby Girls Sinatra App Guide</h1>
+
+<p><em>Created by Sorcha Abel, <a href="https://twitter.com/sabel25">@sabel25</a></em></p>
+
+<h2>
+<a id="what-is-sinatra" class="anchor" href="#what-is-sinatra" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is Sinatra?</h2>
+
+<p><img src="/images/sinatrawiki.png"></p>
+
+<p><em><strong>Why?</strong> Ruby on Rails is a great framework for creating a full web application, but sometimes you don't need all the bells and whistles and just need something small to get a basic web page or web api up and running.  Sinatra performs this task nicely, much like the master himself <a href="https://www.youtube.com/watch?v=xMfz1jlyQrw">performing</a>.</em>  </p>
+
+<h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<h2>
+<a id="1-creating-the-application-with-cloud9" class="anchor" href="#1-creating-the-application-with-cloud9" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>1.</em> Creating the application with Cloud9</h2>
+
+<p>Follow the steps outlined in the Ruby Girls Cloud9 Sinatra Setup Guide <a href="/cloud9-sinatra-guide">Could9 Setup</a></p>
+
+<p><em><strong>Why?</strong> With the plethora of operating systems and their versions, ruby versions, patches, gem versions and on and on it can take many frustrating hours just to get started with your coding.  This is where the beauty of <a href="http://www.cloud9.com">Cloud9</a> comes in - it handles all of this for you, in the cloud, so you can have your projects set up just once and access from anywhere!  Now this doesn't mean you won't want to set up your own computer at some stage, but the good thing is it doesn't have to be today.  And when you're ready, there are many guides out there, but you probably want to have a Mac if you're serious about it, since nearly every Ruby programmer uses a Mac (or Linux if you're feeling adventurous).</em></p>
+
+<h2>
+<a id="2-locate-the-terminal-window-in-cloud9" class="anchor" href="#2-locate-the-terminal-window-in-cloud9" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>2.</em> Locate the terminal window in Cloud9</h2>
+
+<p>There are three gems we will need to install before we can create a Sinatra project.</p>
+
+<p>To install these gems, enter the following commands in the terminal window:
+{% highlight sh %}
+gem install sinatra
+gem install thin
+gem install shotgun
+{% endhighlight %}</p>
+
+<p>*<strong>Why?</strong> To start with, using the terminal is often faster and provides more options than using a user interface.  While it might seem in the world of Windows, Mac OSX and the web that everything uses a mouse, when programming for Ruby and using git its often easier using the terminal to do the things you need.  </p>
+
+<p>Then we get to <em>gems</em>.  Gems are like the building blocks used within Ruby to provide already built bits of code that perform specific functions.  Think of a bit of code that you need to write, and odds are someone already has done it - especially if its a common task (known as <em>patterns</em>) (eg <a href="https://rubygems.org/gems/devise">user names and authentication</a>).  </p>
+
+<p>So for our case, these are the gems we're using:</p>
+
+<ol>
+<li><p>The first gem <code>sinatra</code> allows us to use the Sinatra DSL (Domain Specific Language) in our app.</p></li>
+<li><p><code>Thin</code> is a lightweight and fast web server whose job is to serve up web pages as they are requested.</p></li>
+<li><p><code>Shotgun</code> is development server that reloads our application code with each request. This means we don't need to restart the server in order to see our changes.</p></li>
+</ol>
+
+<p>*</p>
+
+<h2>
+<a id="3-create-a-gemfile" class="anchor" href="#3-create-a-gemfile" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>3.</em> Create a Gemfile</h2>
+
+<p>We need to manually create a Gemfile for our app. This can be done from the terminal window or the Cloud9 file explorer window.</p>
+
+<p>To use the Cloud9 explorer window, right mouse-click and select <code>New file</code>. Rename this file from <code>Untitled</code> to <code>Gemfile</code>.</p>
+
+<p>In the examples that follow we use the terminal window.
+{% highlight sh %}
+touch Gemfile
+{% endhighlight %}
+A Gemfile will now appear in the Cloud9 file explorer window. Double click to open it and type in the following code which specifies which gems we want included in our application:</p>
+
+<p>{% highlight sh %}
+source '<a href="https://rubygems.org">https://rubygems.org</a>'</p>
+
+<p>gem "sinatra"
+gem "sqlite3"
+gem "activerecord"
+gem "sinatra-activerecord"
+group :development do
+    gem "shotgun"
+    gem "tux"
+end
+{% endhighlight %}</p>
+
+<p>Save the Gemfile (<code>cmd + s</code> or menu options <code>file -&gt; save</code>).</p>
+
+<p>Any time you edit a Gemfile you must install the new gems. To do so, run the following command in the terminal window:</p>
+
+<p>{% highlight sh %}
+bundle install
+{% endhighlight %}</p>
+
+<h3>
+<a id="quick-overview-of-the-gems" class="anchor" href="#quick-overview-of-the-gems" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick Overview of the gems</h3>
+
+<p>We have included three news gems to our project:</p>
+
+<p><strong>sqlite3</strong> is the database we will be using for this application.</p>
+
+<p><strong>activerecord</strong> is the interface the application uses to communicate with the database.</p>
+
+<p><strong>sinatra-activerecord</strong> is a bridge that allows us use Active Record in a Sinatra application.</p>
+
+<p><strong>tux</strong> allows us to interact with the database through the command line.</p>
+
+<p><em><strong>Why?</strong> A Gemfile lists all the gems that we want to use in our project.  At the start we used sinatra, thin and shotgun to get going.  Now we're adding some more ...</em></p>
+
+<h2>
+<a id="4project-structure" class="anchor" href="#4project-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>4.</em>Project Structure</h2>
+
+<p>Sinatra doesn’t impose any structure on your project (which can be both a blessing and a curse). The entire structure of the project is in your hands and this flexibility can cause headaches. The structure outlined in this app is a pattern that can work well for many of your future Sinatra apps.</p>
+
+<p>In the next section we will focus on file and folder creation. Pay particular attention to where you create files/folders. Ask an instructor if you are unsure.</p>
+
+<h3>
+<a id="4a-filefolder-creation" class="anchor" href="#4a-filefolder-creation" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>4a.</em> File/Folder Creation</h3>
+
+<p>The instructions given will show you how to create files and folders through the terminal window. You can however create all files and folders by right clicking in the Cloud9 explorer window as we did above. If you feel comfortable with file and folder creation follow the structure in the image below and skip to section 5.</p>
+
+<p>From the terminal create a folder called <code>app</code> by executing the following command:</p>
+
+<p>{% highlight sh %}
+mkdir app
+{% endhighlight %}</p>
+
+<p>Change to the <code>app</code> folder and create three subfolders:</p>
+
+<p>{% highlight sh %}
+cd app
+mkdir models views controllers
+{% endhighlight %}</p>
+
+<p>You have just create a major component of our application's structure:</p>
+
+<ol>
+<li>models (database communication)</li>
+<li>views (what the end user sees)</li>
+<li>controllers (lots of routes for our application)</li>
+</ol>
+
+<p>From the terminal window, move up one level of the project structure and into the root of the project:</p>
+
+<p>{% highlight sh %}
+cd ..
+{% endhighlight %}</p>
+
+<p>First we will create a folder called <code>files</code>. This folder will contain the files that we upload from our app. Next we will create a folder called <code>config</code>. Then we will create a file called <code>application.rb</code> inside the newly created <code>config</code> folder. <code>application.rb</code> is the file that will load all the files needed by our application. Finally we will create a file called <code>database.yml</code> that will manage our database connections.</p>
+
+<p>{% highlight sh %}
+mkdir files
+mkdir config
+cd config
+touch application.rb
+touch database.yml
+{% endhighlight %}</p>
+
+<p>From the terminal window, move up one level of the project structure and into the root of the project. From here create another folder called <code>db</code>. This will store information about our sqlite3 database including our database migrations.
+{% highlight sh %}
+cd ..
+mkdir db
+{% endhighlight %}</p>
+
+<p>We are almost there. The final step in our skeleton structure for our application is to create a <code>config.ru</code> file in the root of the project. The <code>config.ru</code> file is a convention that is required by certain deployment procedures and tools (like shotgun, tux, and Heroku).</p>
+
+<p>{% highlight sh %}
+touch config.ru
+touch Rakefile
+{% endhighlight %}</p>
+
+<p>Congratulations! You may not realise it yet but you have just created a solid basic structure for a Sinatra app that you can reuse time and time again.</p>
+
+<p>By the time our application is complete, it should look similar to the folder structure below:</p>
+
+<p><img src="/images/sinatra_visual_tree.png"></p>
+
+<h2>
+<a id="5-setup-coding" class="anchor" href="#5-setup-coding" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>5.</em> Setup Coding</h2>
+
+<p>We are now ready to begin developing our application.</p>
+
+<p>The first step is to set up the <code>application.rb</code> file. Double click on the file to open it (you will find it under the <code>config</code> folder). Take some time to understand what we are about to put into this file.
+Note you must save all files in cloud9 (<code>cmd + s</code> or menu options <code>file -&gt; save</code>)</p>
+
+<p>{% highlight sh %}
+require 'bundler'
+Bundler.require
+$: &lt;&lt; File.expand_path('../', <strong>FILE</strong>)
+Dir['./app/*<em>/</em>.rb'].sort.each { |file| require file }
+set :root, Dir['./app']
+set :public_folder, Proc.new { File.join(root, 'assets') }
+set :erb, :layout =&gt; :'layouts/application'
+{% endhighlight %}</p>
+
+<p>Lets examine the first four lines in a bit more detail:</p>
+
+<p><strong>require 'bundler'</strong> enables our application to automatically discover the Gemfile.</p>
+
+<p><strong>Bundler.require</strong> loads into the project all the gems that are specified in the Gemfile.</p>
+
+<p><strong>$: &lt;&lt; File.expand_path('../', <strong>FILE</strong>)</strong> adds the entire project to $LOAD_PATH. This allows Sinatra to find all the files you’ve added to the project.</p>
+
+<p><strong>Dir['./app/</strong>/<em>.rb'].sort.each { |file| require file }</em>* This line explicitly requires each file found in our model, view and controller folders.</p>
+
+<p>Even though we haven't set them up yet, we know the project is going to need these files.
+The last three lines of <code>application.rb</code> sets the root of the project and tells the application where the erb (embedded Ruby) files and CSS files are located.</p>
+
+<h3>
+<a id="5a-rakefile" class="anchor" href="#5a-rakefile" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>5a.</em> Rakefile</h3>
+
+<p>We need to set up our Rake file so we can run our helper tasks. Open the file <code>Rakefile</code> and add the following code:
+{% highlight sh %}
+require './config/application'
+require 'sinatra/activerecord/rake'
+{% endhighlight %}</p>
+
+<p>Then to make those files available in the current environment, navigate to the terminal window and run:
+{% highlight sh %}
+bundle install
+{% endhighlight %}</p>
+
+<h3>
+<a id="5b-databaseyml" class="anchor" href="#5b-databaseyml" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>5b.</em> database.yml</h3>
+
+<p>The final step in our setup is the <code>database.yml</code> file. This file will contain our sqlite database setup and is required for connecting to the database. Open the config folder and double click to open the file. Copy and paste the lines below.</p>
+
+<h2>
+<a id="-highlight-sh-" class="anchor" href="#-highlight-sh-" aria-hidden="true"><span class="octicon octicon-link"></span></a>{% highlight sh %}</h2>
+
+<p>sqlite: &amp;sqlite
+  host: 127.0.0.1
+  adapter: sqlite3</p>
+
+<p>development:
+  &lt;&lt;: *sqlite
+  database: db/development.sqlite3</p>
+
+<p>production:
+  &lt;&lt;: *sqlite
+  database: db/production.sqlite3</p>
+
+<p>test:
+  &lt;&lt;: *sqlite
+  database: db/test.sqlite3</p>
+
+<p>{% endhighlight %}</p>
+
+<h2>
+<a id="6-migrations" class="anchor" href="#6-migrations" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>6.</em> Migrations</h2>
+
+<p>Just like we did in the original Rails Girls, we need to create an <code>ideas</code> table so we can save our ideas. From the terminal window run
+{% highlight sh %}
+rake db:create_migration NAME=create_ideas
+{% endhighlight %}</p>
+
+<p>A migration file will have been created in the <code>db/migrate</code> folder. It will be called <code>create_ideas.rb</code> and be prefixed with a unique id including the date and time. Double-click to open it and enter the following. This is similar to the scaffold command you ran in Rails Girls.</p>
+
+<p>{% highlight sh %}
+class CreateIdeas &lt; ActiveRecord::Migration
+  def change
+    create_table :ideas do |t|
+      t.string :name
+      t.text :description
+      t.string :picture</p>
+
+<pre><code>  t.timestamps null: false
+end
+</code></pre>
+
+<p>end</p>
+
+<p>def down
+    drop_table :ideas
+  end
+end
+{% endhighlight %}</p>
+
+<p>Each time we create a migration, it needs to be run so that the changes get applied to the database. Open the terminal window and type:</p>
+
+<p>{% highlight sh %}
+bundle exec rake db:migrate
+{% endhighlight %}</p>
+
+<p>This will create the <code>ideas</code> table. You can see it in the schema file, <code>db/schema.rb</code>.</p>
+
+<h2>
+<a id="7-project-code" class="anchor" href="#7-project-code" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>7.</em> Project Code</h2>
+
+<p>We have just created the ideas table by running the migration, so let's now create the corresponding model. Navigate to the <code>app/model</code> folder and create the <code>idea.rb</code> file (right click in cloud9 file explorer window or use the terminal window). We will use the terminal window.</p>
+
+<p>{% highlight sh %}
+touch idea.rb
+{% endhighlight %}</p>
+
+<p>Double click to open the file and enter the following code:</p>
+
+<p>{% highlight sh %}
+class Idea &lt; ActiveRecord::Base</p>
+
+<p>end
+{% endhighlight %}</p>
+
+<p>This is just an empty file at this stage, we will add code to it later on.</p>
+
+<h2>
+<a id="8-routes" class="anchor" href="#8-routes" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>8.</em> Routes</h2>
+
+<p>Finally it is time to create routes. Routes are simply the rules that tell your application which code to run for a given URL. From the <code>controllers</code> folder, create a file called <code>ideas_controller.rb</code> (you can use the terminal window or cloud9 file explore window)</p>
+
+<p>{% highlight sh %}
+  %w(/ /ideas).each do |path|
+    get path do
+      <a href="https://github.com/ideas" class="user-mention">@ideas</a> = Idea.all
+      erb :'ideas/index'
+    end
+  end
+{% endhighlight %}</p>
+
+<p>Now that we have created our route we need to create a corresponding index page to display it. Create a folder for <code>ideas</code> in the <code>apps/views/</code> directory (from terminal window <code>mkdir ideas</code> or use the cloud9 file explorer window). Then create a file called <code>index.erb</code>.</p>
+
+<h3>
+<a id="8a-views" class="anchor" href="#8a-views" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>8a.</em> Views</h3>
+
+<p>Type or paste the following into the index.erb file you just created</p>
+
+<p>{% highlight sh %}</p>
+
+<h1>
+<a id="listing-ideas" class="anchor" href="#listing-ideas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Listing Ideas</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Picture</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="/ideas/&lt;%=%20idea.id%20%&gt;/edit">Edit</a></td>
+        <td><a href="/ideas/&lt;%=%20idea.id%20%&gt;">Show</a></td>
+        <td><a href="/files/&lt;%=%20idea.picture%20%&gt;">View Picture</a></td>
+        <td><a href="/files/&lt;%=%20idea.picture%20%&gt;/download">Download Picture</a></td>
+        
+      </tr>
+  
+  </tbody>
+</table>
+
+<p><br>
+{% endhighlight %}</p>
+
+<h2>
+<a id="9-improving-our-design" class="anchor" href="#9-improving-our-design" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>9.</em> Improving our design</h2>
+
+<p>Although our application currently has only one page, it will eventually have many pages. To give it a consistent look and feel, we will want to have the same header and footer on each page. Instead of copying and pasting the header and footer onto each page, and having to edit each page if we want to make a change, we will create one file that will contain all the common page content. This is an example of adhering to the DRY (Don't Repeat Yourself) principle of Ruby programming.</p>
+
+<p>Create a subfolder of <code>views</code> folder and call it <code>layouts</code>. Then create a file in the <code>layout</code> folder and call it <code>application.erb</code>.</p>
+
+<p>Enter the following html/erb code:
+{% highlight sh %}
+&lt;!DOCTYPE html&gt;
+
+</p>
+  Workspace
+  
+  &lt;!-- Latest compiled and minified CSS --&gt;
+  
+  &lt;!-- Optional theme --&gt;
+  
+  &lt;!-- Latest compiled and minified JavaScript --&gt;
+  
+  &lt;!-- Application CSS --&gt;
+  
+  &lt;!-- Application JS --&gt;
+  
+
+
+ 
+  <div>
+    <div>
+      
+        Toggle navigation
+        
+        
+        
+      
+      <a href="/ideas">The Idea app</a>
+    </div>
+    <div>
+      <ul>
+        <li><a href="/ideas">Home</a></li>
+        <li><a href="/new">New Idea</a></li>
+        <li><a href="/about">About Me</a></li>
+      </ul>
+      <p></p>
+
+<pre><code>&lt;/div&gt;
+</code></pre>
+
+<p></p>
+</div>
+
+
+<div>
+
+  
+    
+      
+        
+      
+    
+  
+
+  
+</div>
+
+<p> 
+  <div>
+    Ruby Girls 2016
+  </div>
+ </p>
+
+
+
+<p>
+
+{% endhighlight %}</p>
+
+<h3>
+<a id="9a-preview-in-a-browser" class="anchor" href="#9a-preview-in-a-browser" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>9a.</em> Preview in a browser</h3>
+
+<p>In order to start the server, you need to be in the root directory of your project. Use <code>cd ..</code> repeatedly from your terminal window until you return to your workspace. Don't worry if you go back too far, simply <code>cd workspace</code> will bring you back to where you should be. Ask an instructor if unsure.</p>
+
+<p>From the terminal window run the following to start to start the server:</p>
+
+<p>{% highlight sh %}
+ruby config/application.rb -p $PORT -o $IP
+{% endhighlight %}</p>
+
+<p>From the cloud 9 IDE click the <code>share</code> button on the right hand upper window. The select the <code>copy</code> option and paste the url into the browser window.</p>
+
+<p><img src="/images/c9_sinatra/c9_browser.png"></p>
+
+<p>You should now see the ideas app running in the browser! <code>ctrl+c</code> will terminate the server.</p>
+
+<h2>
+<a id="10-new-route-and-view" class="anchor" href="#10-new-route-and-view" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>10.</em> New Route and View</h2>
+
+<p>Generally speaking each route will have a corresponding view. Lets create a route and a view for when we want to create a new idea.</p>
+
+<p>Open the <code>ideas_controller.rb</code> file and insert the following:</p>
+
+<p>{% highlight sh %}
+%w(/new /ideas/new).each do |path|
+  get path do
+    <a href="https://github.com/title" class="user-mention">@title</a> = 'New Idea'
+    <a href="https://github.com/idea" class="user-mention">@idea</a>  = Idea.new
+    erb :'ideas/new'
+  end
+end
+{% endhighlight %}</p>
+
+<p>Now we need to create the HTML page to allow our users to add a new idea.</p>
+
+<p>Navigate to the <code>views/ideas</code> folder and create a new file called <code>new.erb</code>. Add the following code:</p>
+
+<p>{% highlight sh %}</p>
+
+<h1></h1>
+
+
+  Name:<br>
+  
+  <br>
+
+  Description:<br>
+  
+  <br>
+
+  Picture:<br>
+    
+  <br>
+
+  
+
+
+<p>{% endhighlight %}</p>
+
+<p>Let's pause for a moment to review what we have just done. Our first step was to create a route for the <code>new</code> action. We did that in the <code>ideas_controller.rb</code> file.</p>
+
+<p>First, we set up two variables that will be used by the <code>new</code> HTML page, <code>@title</code> and <code>@idea</code>. <code>@title</code> is just the text that appears at the top of the web page. <code>@idea</code> is a variable that will hold all the data we will enter into our HTML page and eventually insert in to the database.</p>
+
+<p>Finally, with the line <code>erb :'ideas/new'</code> we defined a route that will link the URL <code>ideas/new</code> to the "New Idea" web page.</p>
+
+<p>So we have a route that will allow users to enter a new idea but we have no way yet of allowing them to save that idea to the database. If you add the following code to <code>ideas_controller.rb</code>, we will be able to do just that.</p>
+
+<p>{% highlight sh %}
+post '/ideas' do
+  if params[:idea]
+    <a href="https://github.com/idea" class="user-mention">@idea</a>         = Idea.new(params[:idea])
+    if params[:idea][:picture] &amp;&amp; params[:idea][:picture][:filename] &amp;&amp; params[:idea][:picture][:tempfile]
+      <a href="https://github.com/filename" class="user-mention">@filename</a>     = params[:idea][:picture][:filename]
+      @idea.picture = <a href="https://github.com/filename" class="user-mention">@filename</a>
+      file          = params[:idea][:picture][:tempfile]
+      FileUtils.copy_file(file.path,"files/#{@idea.picture}")
+    end
+    if <a href="https://github.com/idea" class="user-mention">@idea</a>.save
+      redirect '/ideas'
+    else
+      erb :'ideas/new'
+    end
+  else
+    erb :'ideas/new'
+  end
+end
+{% endhighlight %}</p>
+
+<h3>
+<a id="10a-preview-in-a-browser" class="anchor" href="#10a-preview-in-a-browser" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>10a.</em> Preview in a browser</h3>
+
+<p>From the terminal window run the following to start to start the server:</p>
+
+<p>{% highlight sh %}
+ruby config/application.rb -p $PORT -o $IP
+{% endhighlight %}</p>
+
+<p>From the Cloud 9 IDE click the <code>share</code> button on the right hand upper window. The select the <code>copy</code> option and paste the URL into the browser window.</p>
+
+<p><img src="/images/c9_sinatra/c9_browser.png"></p>
+
+<p>You should now see the ideas app running in the browser. ctrl + c will terminate the server.</p>
+
+<h2>
+<a id="11-more-routes" class="anchor" href="#11-more-routes" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>11.</em> More routes</h2>
+
+<p>So now we can add an idea in our app and save it to the database. But what about retrieving an idea from the database? The next route in our application will allow us to retrieve just one idea from our database.</p>
+
+<p>Navigate to <code>ideas_controller.rb</code> and enter the following route:</p>
+
+<p>{% highlight sh %}</p>
+
+<p>get '/ideas/:id' do
+  <a href="https://github.com/idea" class="user-mention">@idea</a> = Idea.find(params[:id])
+  erb :'ideas/show'
+end
+{% endhighlight %}</p>
+
+<p>Similar to before this route is calling <code>erb :'ideas/show'</code> so let's create that file now. Navigate to the <code>views/ideas</code> folder and create a file called <code>show.erb</code>. Add the following code:</p>
+
+<p>{% highlight sh %}</p>
+
+<p>
+  <strong>Name:</strong>
+  
+</p>
+
+<p>
+  <strong>Description:</strong>
+  
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  
+</p>
+
+<p> </p>
+
+<p>{% endhighlight %}</p>
+
+<h3>
+<a id="11a-delete-routes" class="anchor" href="#11a-delete-routes" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>11a.</em> Delete routes</h3>
+
+<p>But what if we want to delete an idea that we have previously added?</p>
+
+<p>Navigate to <code>ideas_controller.rb</code> and enter the following code:</p>
+
+<p>{% highlight sh %}
+helpers do
+  def delete_idea_button(idea_id)
+    erb :'ideas/_delete_idea_button', locals: { idea_id: idea_id }
+  end
+end
+{% endhighlight %}</p>
+
+<p>This is called a helper route. It is referring to a view called <code>ideas/_delete_idea_button</code> so let's create that.</p>
+
+<p>Navigate to the <code>views/ideas</code> folder and create a new file called <code>_delete_idea_button.erb</code>. Be sure to include the underscore.</p>
+
+<p>Open the newly created file and enter the following code:</p>
+
+<p>{% highlight sh %}</p>
+
+
+  
+  
+
+
+<p>{% endhighlight %}</p>
+
+<p>Finally we need to create the route that will do the actual deleting. Return to the <code>ideas_controller.rb</code> file and enter the following</p>
+
+<p>{% highlight sh %}
+delete '/ideas/:id' do
+  <a href="https://github.com/idea" class="user-mention">@idea</a> = Idea.find(params[:id]).destroy
+  redirect '/ideas'
+end
+{% endhighlight %}</p>
+
+<p>Lets preview our changes in the browser. From the terminal window run the following to start to start the server:</p>
+
+<p>{% highlight sh %}
+ruby config/application.rb -p $PORT -o $IP
+{% endhighlight %}</p>
+
+<h3>
+<a id="11b-updating-that-one-idea" class="anchor" href="#11b-updating-that-one-idea" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>11b.</em> Updating that one Idea</h3>
+
+<p>We are almost done! The final piece of database functionality it to retrieve a single idea and update it. As we did in the previous steps, let's start by creating a new route. Add the following code to <code>ideas_controller.rb</code>:</p>
+
+<p>{% highlight sh %}
+get '/ideas/:id/edit' do
+  <a href="https://github.com/idea" class="user-mention">@idea</a> = Idea.find(params[:id])
+  erb :'ideas/edit'
+end
+{% endhighlight %}</p>
+
+<p>Again we see the route is calling a view <code>erb :'ideas/edit'</code>. Lets create it by navigating to <code>views/ideas</code> and creating
+a file called <code>edit.erb</code> with the following code:</p>
+
+<p>{% highlight sh %}</p>
+
+<h1>
+<a id="edit-post" class="anchor" href="#edit-post" aria-hidden="true"><span class="octicon octicon-link"></span></a>Edit Post</h1>
+
+
+  
+
+  Name:<br>
+  
+  <br>
+
+  Description:<br>
+  
+  <br>
+
+  Picture:<br>
+  
+  <br>
+
+  
+
+
+<p>{% endhighlight %}</p>
+
+<p>As with the <code>new</code> action above, we know we will need to create a second route to update the database with the new data. Navigate back into <code>ideas_controller.rb</code> and add the following code:</p>
+
+<p>{% highlight sh %}
+put '/ideas/:id' do
+  if params[:idea].try(:[], :picture)
+    file      = params[:idea][:picture][:tempfile]
+    <a href="https://github.com/filename" class="user-mention">@filename</a> = params[:idea][:picture][:filename]
+  end</p>
+
+<p><a href="https://github.com/idea" class="user-mention">@idea</a> = Idea.find(params[:id])</p>
+
+<p>if @idea.update_attributes(params[:idea])
+    if <a href="https://github.com/filename" class="user-mention">@filename</a>
+      @idea.picture = <a href="https://github.com/filename" class="user-mention">@filename</a>
+      <a href="https://github.com/idea" class="user-mention">@idea</a>.save
+      File.open("./files/#{<a href="https://github.com/filename" class="user-mention">@filename</a>}", 'wb') do |f|
+        f.write(file.read)
+      end
+    end
+    redirect "/ideas/#{@idea.id}"
+  else
+    erb :'ideas/edit'
+  end
+end</p>
+
+<p>{% endhighlight %}</p>
+
+<p>Lets preview our changes in the browser. From the terminal window run the following to start to start the server:</p>
+
+<p>{% highlight sh %}
+ruby config/application.rb -p $PORT -o $IP
+{% endhighlight %}</p>
+
+<p>We have left out an important route for our app: managing the files we uploaded. To keep things simple let's create a new controller that will deal with the files in our app.</p>
+
+<p>Navigate to the <code>apps/controllers</code> folder and create a new controller called <code>files_controller.rb</code>. Add the following code to create the required routes:</p>
+
+<p>{% highlight sh %}
+get '/files/:filename/download' do |filename|
+  send_file "./files/#{filename}", :filename =&gt; filename, :type =&gt; 'Application/octet-stream'
+end</p>
+
+<p>get '/files/:filename' do |filename|
+  send_file "./files/#{filename}"
+end
+{% endhighlight %}</p>
+
+<p>Let's try to download or view our files in the browser. From the terminal window run the following to start to start the server:</p>
+
+<p>{% highlight sh %}
+ruby config/application.rb -p $PORT -o $IP
+{% endhighlight %}</p>
+
+<h2>
+<a id="12-css" class="anchor" href="#12-css" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>12.</em> CSS</h2>
+
+<p>Lets add some css to our app.</p>
+
+<p>Using the terminal window <code>cd</code> into the app folder and then do the following (again you can use the Cloud9 file explore window to create these folders)</p>
+
+<p>{% highlight sh %}
+cd app
+mkdir assets
+cd assets
+mkdir css
+touch application.css
+{% endhighlight %}</p>
+
+<p>Lets open our newly created <code>application.css</code> file and add the following code:</p>
+
+<p>{% highlight sh %}
+body { padding-top: 100px; }
+footer { margin-top: 100px; }
+table, td, th { vertical-align: middle; border: none; color: brown; }
+th { border-bottom: 1px solid #DDD; }
+{% endhighlight %}</p>
+
+<p>Let's preview our changes in the browser. From the terminal window run the following to start to start the server:</p>
+
+<p>{% highlight sh %}
+ruby config/application.rb -p $PORT -o $IP
+{% endhighlight %}</p>
+
+<h2>
+<a id="13-heroku" class="anchor" href="#13-heroku" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>13.</em> Heroku</h2>
+
+<p>Following the heroku guide <a href="/heroku">Pushing to Heroku</a></p>
+
+<h2>
+<a id="14-github" class="anchor" href="#14-github" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>14.</em> Github</h2>
+
+<p>Finally we should push all our code to Github.</p>
+
+<p>Log onto Github and create a new repository</p>
+
+<p><img src="/images/github_new_repo.png"></p>
+
+<p>Give your repo a title and a description</p>
+
+<p><img src="/images/github_create_repo.png"></p>
+
+<p>Follow the instructions on Github under the heading <code>…or push an existing repository from the command line</code></p>
+
+<p>They will be similar to below. DO NOT copy the lines below. You must push to your own newly created repo</p>
+
+<p>{% highlight sh %}
+git remote add origin <a href="https://github.com/YourName/project_name.git">https://github.com/YourName/project_name.git</a>
+git push -u origin master
+{% endhighlight %}</p>
+
+<h2>
+<a id="15-the-end" class="anchor" href="#15-the-end" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>15.</em> The End</h2>
+
+<p>Every app should be accompanied by a README.md document. Edit this file with details about your app and push this update to Github (use the steps outlined above)</p>
+
+<p>Congratulations you have just completed your first Sinatra app!</p>
+</div> 
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
